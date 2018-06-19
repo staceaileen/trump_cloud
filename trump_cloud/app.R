@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(ECharts2Shiny)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -35,10 +36,11 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$word_cloud <- renderPlot({
+   output$word_cloud <- reactivePlot({
       word_bag <- clean_data()
       final_scoring <- sentiments_score(word_bag)
-      get_cloud(input$frequency, final_scoring)
+      cloud <- get_cloud(input$frequency, final_scoring)
+      cloud
    })
 }
 
