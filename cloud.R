@@ -6,6 +6,9 @@ library(wordcloud2)
 library(viridis)
 library(dplyr)
 
+# input from user
+input_max = 20
+
 # count frequency of word
 word_freq <- final_scoring %>% 
   group_by(word) %>% 
@@ -28,5 +31,7 @@ mutate(final_scoring, color = cut(avg_sentiment, breaks = c(-5.0, -4.0, -3.0, -2
 
 # create word cloud
 testing <- final_scoring %>% select(word, freq, color)
+
+testing <- testing %>% arrange(desc(freq)) %>% slice(0:input_max)
 
 cloud <- wordcloud2(data = testing, color = testing$color, shape = 'circle')
