@@ -22,14 +22,12 @@ ui <- fluidPage(
                      "Number of words:",
                      min = 1,
                      max = 50,
-                     value = 30),
-        dateInput("date_start", label = h3("Date Start"), value = "2017-01-01"),
-        dateInput("date_end", label = h3("Date End"), value = "2017-12-31")
+                     value = 30)
         ),
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("distPlot")
+         plotOutput("word_cloud")
       )
    )
 )
@@ -37,13 +35,10 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$distPlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      x    <- faithful[, 2] 
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
-      
-      # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = 'darkgray', border = 'white')
+   output$word_cloud <- renderPlot({
+      word_bag <- clean_data()
+      final_scoring <- sentiments_score(word_bag)
+      get_cloud(input$frequency, final_scoring)
    })
 }
 

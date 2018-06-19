@@ -16,11 +16,12 @@ consumer_secret <- ""
 access_token <- ""
 access_secret <- ""
 
+startDate = '2017-01-08'
 
 # getting tweets using twitteR API
 setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 
-tw = twitteR::searchTwitter('@realDonaldTrump', n = 100, lang = 'en', since = '2017-01-08', retryOnRateLimit = 1e3)
+tw = twitteR::searchTwitter('@realDonaldTrump', n = 1000, lang = 'en', since = '2018-06-11', until = '2018-06-18', retryOnRateLimit = 1e3)
 (d = twitteR::twListToDF(tw))
 
 tweet_stats = data.frame(tweet = d$text, favoriteCount = d$favoriteCount, retweetCount = d$retweetCount)
@@ -31,6 +32,7 @@ tweet_created$text <- gsub("@\\w+ *", "", tweet_created$text)
 tweet_created$text <- gsub("(R)T ", "", tweet_created$text)
 tweet_created$text <- gsub("https", "", tweet_created$text)
 tweet_created$text <- gsub("t.co", "", tweet_created$text)
+tweet_created$text <- gsub("[0-9]+", "", tweet_created$text)
 
 # cleaning the text from tweets
 word_bag <- tweet_created %>% mutate(line = 1:nrow(.))
