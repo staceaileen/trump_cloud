@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 getting_tweets.R
+.httr-oauth
