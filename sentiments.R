@@ -48,7 +48,6 @@ scored_words
 avg_scored_tweets <- scored_words %>% 
   group_by(line) %>%
   summarize(avg_score = mean(score))
-?merge
 
 avg_scored_tweets
 
