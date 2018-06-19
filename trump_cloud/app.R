@@ -9,6 +9,7 @@
 
 library(shiny)
 library(ECharts2Shiny)
+library(wordcloud2)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -28,7 +29,7 @@ ui <- fluidPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("word_cloud")
+         wordcloud2Output('word_cloud')
       )
    )
 )
@@ -36,11 +37,10 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$word_cloud <- reactivePlot({
+   output$word_cloud <- renderWordcloud2({
       word_bag <- clean_data()
       final_scoring <- sentiments_score(word_bag)
-      cloud <- get_cloud(input$frequency, final_scoring)
-      cloud
+      (get_cloud(input$frequency, final_scoring))
    })
 }
 
