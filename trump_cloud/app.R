@@ -18,6 +18,7 @@ library(RCurl)
 library(twitteR)
 library(tidytext)
 library(shinythemes)
+library(lubridate)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(theme = shinytheme("superhero"),
@@ -35,6 +36,10 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                      value = 30)
         ),
       
+      dateInput("date", "From day:", value = today(), min = today() - 7, max = today(),
+                format = "yyyy-mm-dd", startview = "month", weekstart = 0,
+                language = "en", width = NULL),
+      
       # Show a plot of the generated distribution
       mainPanel(
          wordcloud2Output('word_cloud')
@@ -46,7 +51,8 @@ ui <- fluidPage(theme = shinytheme("superhero"),
 server <- function(input, output) {
    
    output$word_cloud <- renderWordcloud2({
-      word_bag <- clean_data()
+      d <- tweets(input$date)
+      word_bag <- clean_data(d)
       final_scoring <- sentiments_score(word_bag)
       (get_cloud(input$frequency, final_scoring))
    })
