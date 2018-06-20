@@ -10,9 +10,17 @@
 library(shiny)
 library(ECharts2Shiny)
 library(wordcloud2)
+library(TweetBase)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(RCurl)
+library(twitteR)
+library(tidytext)
+library(shinythemes)
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(
+ui <- fluidPage(theme = shinytheme("superhero"),
    
    # Application title
    titlePanel("What Did Trump Do Now?"),
