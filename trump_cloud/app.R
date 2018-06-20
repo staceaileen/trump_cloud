@@ -32,13 +32,14 @@ ui <- fluidPage(theme = shinytheme("superhero"),
         sliderInput("frequency",
                      "Number of words:",
                      min = 1,
-                     max = 50,
-                     value = 30)
-        ),
+                     max = 30,
+                     value = 20),
+        
       
-      dateInput("date", "From day:", value = today(), min = today() - 7, max = today(),
+      dateInput("date", "From day:", value = as.character(today()-1), min = as.character(today() - 7), max = as.character(today()-1),
                 format = "yyyy-mm-dd", startview = "month", weekstart = 0,
-                language = "en", width = NULL),
+                language = "en", width = NULL)
+      ),
       
       # Show a plot of the generated distribution
       mainPanel(
