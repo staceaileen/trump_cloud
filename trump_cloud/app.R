@@ -26,6 +26,14 @@ ui <- fluidPage(theme = shinytheme("superhero"),
    # Application title
    titlePanel("What Did Trump Do Now?"),
    
+   HTML(
+     paste(
+       h3("Want to see the most frequent words from people tweeting about Trump?"),'<br/>',
+       h4("The bigger words are the ones used most frequently and it's color coded in red for (BAD) and blue for (GOOD)."),'<br/>',
+       h4("Enjoy! - Stacy & Luke")
+     )
+   ),
+   
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(
@@ -50,11 +58,12 @@ ui <- fluidPage(theme = shinytheme("superhero"),
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  
+  d <- tweets(input$date)
+  word_bag <- clean_data(d)
+  final_scoring <- sentiments_score(word_bag)
    
    output$word_cloud <- renderWordcloud2({
-      d <- tweets(input$date)
-      word_bag <- clean_data(d)
-      final_scoring <- sentiments_score(word_bag)
       (get_cloud(input$frequency, final_scoring))
    })
 }
