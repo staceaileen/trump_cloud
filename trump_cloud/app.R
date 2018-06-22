@@ -28,9 +28,9 @@ ui <- fluidPage(theme = shinytheme("superhero"),
    
    HTML(
      paste(
-       h3("Want to see the most frequent words from people tweeting about Trump?"),'<br/>',
-       h4("The bigger words are the ones used most frequently and it's color coded in red for (BAD) and blue for (GOOD)."),'<br/>',
-       h4("Enjoy! - Stacy & Luke")
+       h3("Want to see the most frequent words from people tweeting about Trump?"),
+       h4("The bigger words are the ones used most frequently and it's color coded in red for (BAD) and blue for (GOOD)."),
+       h4("Enjoy! - Stacy & Luke"), "</br>"
      )
    ),
    
@@ -51,6 +51,7 @@ ui <- fluidPage(theme = shinytheme("superhero"),
       
       # Show a plot of the generated distribution
       mainPanel(
+         textOutput("text"),
          wordcloud2Output('word_cloud')
       )
    )
@@ -59,12 +60,15 @@ ui <- fluidPage(theme = shinytheme("superhero"),
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
-  d <- tweets(input$date)
-  word_bag <- clean_data(d)
-  final_scoring <- sentiments_score(word_bag)
+  fetch <- reactive({
+    d <- tweets(input$date)
+    word_bag <- clean_data(d)
+    final_scoring <- sentiments_score(word_bag)
+    return(final_scoring)
+  })
    
    output$word_cloud <- renderWordcloud2({
-      (get_cloud(input$frequency, final_scoring))
+      (get_cloud(input$frequency, fetch()))
    })
 }
 
