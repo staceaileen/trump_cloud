@@ -5,6 +5,8 @@ account: dataewok
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 363149
-bundleId: 1443531
+bundleId: 1462402
 url: https://dataewok.shinyapps.io/trump_cloud/
-when: 1529685880.22923
+when: 1530614014.9217
+asMultiple: FALSE
+asStatic: FALSE

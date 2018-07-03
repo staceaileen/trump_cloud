@@ -6,3 +6,25 @@
 [1] "Using direct authentication"
 [1] "Using direct authentication"
 [1] "Using direct authentication"
+Preparing to deploy application...DONE
+Uploading bundle for application: 363149...DONE
+Deploying bundle: 1443598 for application: 363149 ...
+Waiting for task: 533263961
+  building: Parsing manifest
+  building: Building image: 1456912
+  building: Installing system dependencies
+  building: Fetching packages
+  building: Installing packages
+  building: Installing files
+  building: Pushing image: 1456912
+Preparing to deploy application...DONE
+Uploading bundle for application: 363149...DONE
+Deploying bundle: 1443605 for application: 363149 ...
+Waiting for task: 533264241
+  building: Parsing manifest
+  building: Building image: 1456922
+  building: Installing system dependencies
+  building: Fetching packages
+  building: Installing packages
+  building: Installing files
+  building: Pushing image: 1456922

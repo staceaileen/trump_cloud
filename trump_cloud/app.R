@@ -46,7 +46,10 @@ ui <- fluidPage(theme = shinytheme("superhero"),
       
       dateInput("date", "From day:", value = as.character(today()-1), min = as.character(today() - 7), max = as.character(today()-1),
                 format = "yyyy-mm-dd", startview = "month", weekstart = 0,
-                language = "en", width = NULL)
+                language = "en", width = NULL),
+      
+      textInput("filter", "Filter Word:", value = "")
+        
       ),
       
       # Show a plot of the generated distribution
@@ -61,7 +64,7 @@ ui <- fluidPage(theme = shinytheme("superhero"),
 server <- function(input, output) {
   
   fetch <- reactive({
-    d <- tweets(input$date)
+    d <- tweets(input$date, input$filter)
     word_bag <- clean_data(d)
     final_scoring <- sentiments_score(word_bag)
     return(final_scoring)
